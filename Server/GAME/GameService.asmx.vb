@@ -14,14 +14,20 @@ Imports ICSharpCode.SharpZipLib.Zip
 Imports System.ComponentModel
 
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
-<System.Web.Services.WebServiceBinding(ConformsTo:=WsiProfiles.BasicProfile1_1)> _
-<ToolboxItem(False)> _
 Public Class GameService
     Inherits System.Web.Services.WebService
 
-    <WebMethod()> _
+
+    <WebMethod(), SoapDocumentMethod("http://tempuri.org/Hello(", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
     Public Function HelloWorld() As String
-       Return "Hello World"
+        Return "Hello World"
+    End Function
+
+    <WebMethod(), SoapDocumentMethod("http://tempuri.org/GetCard(", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
+    Public Function GetCard() As Card
+        Dim card As New Card
+        card.Name = "A"
+        Return card
     End Function
 
 End Class
@@ -93,7 +99,7 @@ Public Class CompressExtension
             Case Else
                 Throw New Exception("invalid stage")
         End Select
-    End Sub 'ProcessMessage
+    End Sub
 
     Public Sub WriteOutput(ByVal message As SoapMessage)
         If Me.zipOutputStream Is Nothing Then
@@ -109,7 +115,7 @@ Public Class CompressExtension
         Me.newStream.Read(writeData, 0, CInt(Me.newStream.Length))
         Me.zipOutputStream.Write(writeData, 0, CInt(Me.newStream.Length))
         Me.zipOutputStream.Finish()
-    End Sub 'WriteOutput
+    End Sub
 
     Public Sub WriteInput(ByVal message As SoapMessage)
         Dim size As Integer = 2048
@@ -124,7 +130,7 @@ Public Class CompressExtension
             End If
         End While
         Me.newStream.Position = 0
-    End Sub 'WriteInput
+    End Sub
 End Class
 
 #End Region
