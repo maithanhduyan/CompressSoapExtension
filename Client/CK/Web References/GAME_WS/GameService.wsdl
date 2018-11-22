@@ -2,26 +2,8 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="HelloWorld">
-        <s:complexType />
-      </s:element>
-      <s:element name="HelloWorldResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCard">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetCardResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCardResult" type="tns:Card" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
+      <s:element name="HelloWorldResult" type="s:string" />
+      <s:element name="GetCardResult" type="tns:Card" />
       <s:complexType name="Card">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
@@ -29,17 +11,13 @@
       </s:complexType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
-  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapIn" />
   <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+    <wsdl:part name="HelloWorldResult" element="tns:HelloWorldResult" />
   </wsdl:message>
-  <wsdl:message name="GetCardSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCard" />
-  </wsdl:message>
+  <wsdl:message name="GetCardSoapIn" />
   <wsdl:message name="GetCardSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCardResponse" />
+    <wsdl:part name="GetCardResult" element="tns:GetCardResult" />
   </wsdl:message>
   <wsdl:portType name="GameServiceSoap">
     <wsdl:operation name="HelloWorld">
@@ -54,7 +32,7 @@
   <wsdl:binding name="GameServiceSoap" type="tns:GameServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/Hello(" style="document" />
+      <soap:operation soapAction="http://tempuri.org/Hello" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -63,7 +41,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetCard">
-      <soap:operation soapAction="http://tempuri.org/GetCard(" style="document" />
+      <soap:operation soapAction="http://tempuri.org/GetCard" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -75,7 +53,7 @@
   <wsdl:binding name="GameServiceSoap12" type="tns:GameServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/Hello(" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/Hello" style="document" soapActionRequired="true" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -84,7 +62,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetCard">
-      <soap12:operation soapAction="http://tempuri.org/GetCard(" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/GetCard" style="document" soapActionRequired="true" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

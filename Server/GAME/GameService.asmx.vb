@@ -17,13 +17,12 @@ Imports System.ComponentModel
 Public Class GameService
     Inherits System.Web.Services.WebService
 
-
-    <WebMethod(), SoapDocumentMethod("http://tempuri.org/Hello(", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
+    <WebMethod(), SoapDocumentMethod("http://tempuri.org/Hello", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
     Public Function HelloWorld() As String
         Return "Hello World"
     End Function
 
-    <WebMethod(), SoapDocumentMethod("http://tempuri.org/GetCard(", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
+    <WebMethod(), SoapDocumentMethod("http://tempuri.org/GetCard", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
     Public Function GetCard() As Card
         Dim card As New Card
         card.Name = "A"
@@ -80,7 +79,7 @@ Public Class CompressExtension
         Me.oldStream = stream
         Me.newStream = New MemoryStream
         Me.zipInputStream = New ZipInputStream(Me.oldStream)
-        Me.zipInputStream.Password = "COMPRESSSOAPEXTENSION"
+        Me.zipInputStream.Password = "PASSWORD"
         Return Me.newStream
     End Function 'ChainStream
 
@@ -105,7 +104,7 @@ Public Class CompressExtension
         If Me.zipOutputStream Is Nothing Then
             Me.zipOutputStream = New ZipOutputStream(Me.oldStream)
             Me.zipOutputStream.SetLevel(5)
-            Me.zipOutputStream.Password = "COMPRESSSOAPEXTENSION"
+            Me.zipOutputStream.Password = "PASSWORD"
         End If
         Dim entry As New ZipEntry(ZipEntry.CleanName(""))
         entry.Size = Me.newStream.Length

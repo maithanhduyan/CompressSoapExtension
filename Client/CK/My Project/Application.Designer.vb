@@ -35,4 +35,5 @@ Namespace My
             Me.MainForm = Global.CK.CK
         End Sub
     End Class
+
 End Namespace
