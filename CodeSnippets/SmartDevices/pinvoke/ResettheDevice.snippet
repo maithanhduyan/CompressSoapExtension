@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Reset the Device</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Resets (soft reboot) the device using platform APIs.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdreset</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+      </References>
+      <Imports>
+      </Imports>
+      <Declarations/>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Declare Function KernelIoControl Lib "coredll.dll" (ByVal dwIoControlCode As Integer, ByVal lpInBuf As IntPtr, ByVal nInBufSize As Integer, ByVal lpOutBuf As IntPtr, ByVal nOutBufSize As Integer, ByRef lpBytesReturned As Integer) As Integer
+
+    Private Function CTL_CODE(ByVal DeviceType As Integer, ByVal Func As Integer, ByVal Method As Integer, ByVal Access As Integer) As Integer
+        Return (DeviceType << 16) Or (Access << 14) Or (Func << 2) Or Method
+    End Function
+
+    Private Function ResetPocketPC() As Integer
+        Const FILE_DEVICE_HAL As Integer = &H101
+        Const METHOD_BUFFERED As Integer = 0
+        Const FILE_ANY_ACCESS As Integer = 0
+
+        Dim bytesReturned As Integer = 0
+        Dim IOCTL_HAL_REBOOT As Integer
+
+        IOCTL_HAL_REBOOT = CTL_CODE(FILE_DEVICE_HAL, 15, METHOD_BUFFERED, FILE_ANY_ACCESS)
+        Return KernelIoControl(IOCTL_HAL_REBOOT, IntPtr.Zero, 0, IntPtr.Zero, 0, bytesReturned)
+
+    End Function]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

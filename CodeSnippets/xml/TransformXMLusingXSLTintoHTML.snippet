@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Transform XML into HTML using XSLT</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Transforms XML into HTML using XSLT.</Description>
+      <Shortcut>xmlXslt</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Xml.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Xml.Xsl</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>xslt</ID>
+          <Type />
+          <ToolTip>Replace with path to XSLT file.</ToolTip>
+          <Default>"theXsltFile.xslt"</Default>
+          <Function />
+        </Literal>
+        <Literal>
+          <ID>xml</ID>
+          <Type />
+          <ToolTip>Replace with path to XML file.</ToolTip>
+          <Default>"theXmlFile.xml"</Default>
+          <Function />
+        </Literal>
+        <Literal>
+          <ID>output</ID>
+          <Type />
+          <ToolTip>Replace with output filename.</ToolTip>
+          <Default>"theOutputFile.html"</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[Dim xslt As New XslCompiledTransform
+
+        xslt.Load($xslt$)
+        xslt.Transform($xml$, $output$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

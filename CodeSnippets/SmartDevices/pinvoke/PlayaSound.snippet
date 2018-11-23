@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Play a Sound file</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Uses platform APIs to play a sound file.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdsound</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+      </References>
+      <Imports>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Declare Function WCE_PlaySound Lib "CoreDll.dll" Alias "PlaySound" _
+        (ByVal szSound As String, ByVal hMod As IntPtr, ByVal flags As Integer) As Integer
+
+    Public Shared Sub PlaySoundFile(ByVal soundFile As String)
+        Const SND_ASYNC = &H1
+        Const SND_FILENAME = &H20000
+
+        WCE_PlaySound(soundFile, IntPtr.Zero, SND_ASYNC Or SND_FILENAME)
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

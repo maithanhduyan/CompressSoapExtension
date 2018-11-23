@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Discover an IrDA Device</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Determines infrared devices in proximity to the device.</Description>
+      <Shortcut>sdirdadis</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Net.IrDA.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Net.Sockets</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub FindIrDADevices()
+    Dim irDevices() As IrDADeviceInfo
+    Dim irClient As New IrDAClient()
+    
+    ' Create a collection of a maximum of three devices.
+    irDevices = irClient.DiscoverDevices(2)
+      
+    If irDevices.Length > 0 Then
+
+    	For Each device As IrDADeviceInfo In irDevices
+      	
+    	Next
+    End If
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Submit an HTTP GET Request with Proxy</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Submits an HTTP GET request using a proxy.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdhttp</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Net</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Text</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>url</ID>
+          <Type>TextBox</Type>
+          <ToolTip>Replace with TextBox control on your form.</ToolTip>
+          <Default>txtURL</Default>
+          <Function />
+        </Object>
+        <Object>
+          <ID>proxy</ID>
+          <Type>TextBox</Type>
+          <ToolTip>Replace with TextBox control on your form.</ToolTip>
+          <Default>txtProxy</Default>
+          <Function />
+        </Object>
+        <Object>
+          <ID>list</ID>
+          <Type>ListBox</Type>
+          <ToolTip>Replace with ListBox control on your form.</ToolTip>
+          <Default>lstResults</Default>
+          <Function />
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[' Get URL and proxy
+' from the text boxes.
+Dim url As String = $url$.Text
+Dim proxy As String = $proxy$.Text
+
+Try
+    If Not "".Equals($proxy$.Text) Then
+        Dim proxyObject As New WebProxy(proxy, 80)
+
+        ' Disable proxy use when the host is local.
+        proxyObject.BypassProxyOnLocal = True
+
+        ' HTTP requests use this proxy information.
+        GlobalProxySelection.Select = proxyObject
+    End If
+
+    Dim req As WebRequest = WebRequest.Create(url)
+    Dim result As WebResponse = req.GetResponse()
+    Dim ReceiveStream As Stream = result.GetResponseStream()
+    Dim encode As Encoding = System.Text.Encoding.GetEncoding("utf-8")
+    Dim sr As New StreamReader(ReceiveStream, encode)
+
+    ' Read the stream into arrays of 30 characters to add
+    ' as items in the list box. Repeat until buffer is read.
+    Dim read(29) As Char
+    Dim count As Integer = sr.Read(read, 0, 30)
+    While count > 0
+        Dim str As New String(read, 0, count)
+        $list$.Items.Add(str)
+        count = sr.Read(read, 0, 30)
+    End While
+Catch ex As WebException
+    Dim message As String = ex.Message
+    Dim response As HttpWebResponse = CType(ex.Response, HttpWebResponse)
+    If response Is Nothing Then
+    Else
+        message = response.StatusDescription
+        response.Close()
+    End If
+    $list$.Items.Add(message)
+Catch ex As Exception
+    $list$.Items.Add(ex.Message)
+End Try]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

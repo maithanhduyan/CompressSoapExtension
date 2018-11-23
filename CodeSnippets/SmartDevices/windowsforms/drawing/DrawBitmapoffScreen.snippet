@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Draw Bitmap off Screen</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Shows how reduce flicker by preparing graphics off screen before rendering.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdoffscrn</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Threading</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="type decl"><![CDATA[' This snippet uses the OnPaint event handler to
+' draw a complex bitmap using a Graphics object
+' separate from the form. When the drawing
+' is completed, the bitmap is then drawn on the
+' screen using a Graphics object of the form.
+
+Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    Dim bmpOff As Bitmap
+    Dim gxOff As Graphics
+
+    ' Create a bitmap the size of the form.
+    bmpOff = New Bitmap(ClientRectangle.Width, ClientRectangle.Height)
+
+    Dim blueBrush As New SolidBrush(Color.Blue)
+    Dim whitePen As New Pen(Color.White, 3)
+    
+    ' Create a Grahics object that is not of the screen.
+    gxOff = Graphics.FromImage(bmpOff)
+    gxOff.FillRectangle(new SolidBrush(color.red), 0, 0, bmpOff.Width, bmpOff.Height)
+    
+    ' Draw a complex bitmap of 1000 random rectangles. It will take a few seconds to draw.
+    Dim RandomRect As Integer
+    For RandomRect = 1 To 1000
+        ' Generate random number with  
+        ' seeds from the system clock.
+        Thread.Sleep(1)
+        Dim rx As New Random()
+        Thread.Sleep(1)
+        Dim ry As New Random()
+        ' Create rectangles in the inner area of the form.
+        Dim rect As New Rectangle(rx.Next(10,200), ry.Next(10,200), 10, 10)
+        gxOff.DrawRectangle(whitePen, rect)
+        gxOff.FillRectangle(blueBrush, rect)
+    Next RandomRect
+   
+    ' Render the off-screen bitmap onto the screen.
+    e.graphics.DrawImage(bmpOff, 0, 0, ClientRectangle, GraphicsUnit.Pixel)
+    
+    ' Dispose created Graphic object.
+    gxOff.Dispose()
+    
+    ' Note that flickering may still occur if OnPaint is invoked 
+    ' frequently by the background being repainted.
+    ' You can override OnPaintBackground to stop background painting.
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

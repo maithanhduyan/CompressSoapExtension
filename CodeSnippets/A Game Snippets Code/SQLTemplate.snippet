@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+			<Title>SQL Template</Title>
+			<Author>Mai Thành Duy An</Author>
+			<Description>Add Template</Description>
+			<Shortcut>sqltemp</Shortcut>
+		</Header>
+		
+        <Snippet>
+			<Declarations>
+				<Literal>
+					<ID>SqlConnString</ID>
+					<ToolTip>Replace with a SQL connection string.</ToolTip>
+					<Default>"SQL connection string"</Default>
+				</Literal>
+				<Object>
+					<ID>SqlConnection</ID>
+					<Type>System.Data.SqlClient.SqlConnection</Type>
+					<ToolTip>Replace with a connection object in your application.</ToolTip>
+					<Default>dcConnection</Default>
+				</Object>
+			</Declarations>
+            <Code Language="VB" Kind="method body">
+                 <![CDATA[Dim daCustomers As SqlDataAdapter
+						Dim selectCommand As SqlCommand
+
+						daCustomers = New SqlClient.SqlDataAdapter()
+						selectCommand = new SqlClient.SqlCommand($SqlConnString$)
+						daCustomers.SelectCommand = selectCommand
+						daCustomers.SelectCommand.Connection = $SqlConnection$]]>
+            </Code>
+			<References>
+				<Reference>
+					<Assembly>System.Windows.Forms.dll</Assembly>
+				</Reference>
+			</References>
+			<Imports>
+				<Import>
+					<Namespace>System.Data</Namespace>
+				</Import>
+				<Import>
+					<Namespace>System.Data.SqlClient</Namespace>
+				</Import>
+			</Imports>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Iterate named nodes in XML document</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Iterates the elements in an XML document by element name.</Description>
+      <Shortcut>xmlIter</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.XML.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Xml</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>TagName</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with the name of the element (not the entire XPath).</ToolTip>
+          <Default>"ElementName"</Default>
+        </Literal>
+        <Object>
+          <ID>XmlVariable</ID>
+          <Type>XmlDocument</Type>
+          <ToolTip>Replace with an XmlDocument variable.</ToolTip>
+          <Default>xmlDoc</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[For Each node As XmlNode In $xmlVariable$.GetElementsByTagName($TagName$)
+
+        Next]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

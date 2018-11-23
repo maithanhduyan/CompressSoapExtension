@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Save an Image to a File</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Saves the image of a PictureBox to a file.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdsaveimg</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing.Imaging</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>FileToSave</ID>
+          <Type>String</Type>
+          <ToolTip>Replace this with the path and file name for the file to save.</ToolTip>
+          <Default>".\My Documents\savedbmp.bmp"</Default>
+        </Literal>
+        <Object>
+          <ID>PictureBox</ID>
+          <Type>PictureBox</Type>
+          <ToolTip>Replace with a PictureBox control on your form.</ToolTip>
+          <Default>PictureBox1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub saveBitmap()
+    'Save image to a file.
+    $PictureBox$.Image.Save($FileToSave$, ImageFormat.Bmp)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

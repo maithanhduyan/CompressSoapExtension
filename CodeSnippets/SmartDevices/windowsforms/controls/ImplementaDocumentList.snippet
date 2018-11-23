@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Implement a DocumentList</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Implements the DocumentList control that provides the UI for managing files. Requires .NET Compact Framework 2.0.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sddoclist</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>DocumentList</ID>
+          <Type>DocumentList</Type>
+          <ToolTip>Replace this with DocumentList control on your form.</ToolTip>
+          <Default>DocumentList1</Default>
+        </Object>
+        <Literal>
+          <ID>DefaultDirectory</ID>
+          <Type>String</Type>
+          <ToolTip>Replace this with the default folder name.</ToolTip>
+          <Default>"Business"</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA['Set up file extension filters for a
+   'DocumentList and set the initial folder
+    Sub SetupDocList()
+      $DocumentList$.Parent = Me
+      $DocumentList$.Filter = " |*.*| |*.txt;*.xml| |*.pwi;*.pdt| |*.pxl;*.psw| |*.jpg;*.gif;*.bmp| |*.wav;*.wmv;*.mpg;"
+      $DocumentList$.FilterIndex = 0
+      $DocumentList$.SelectedDirectory = $DefaultDirectory$
+    End Sub
+
+    Private Sub DocList_DocumentActivated(ByVal sender As Object, ByVal docevent As Microsoft.WindowsCE.Forms.DocumentListEventArgs) Handles $DocumentList$.DocumentActivated
+        ' Add code to open the selected file.
+
+    End Sub
+
+    Private Sub DocList_DeletingDocument(ByVal sender As Object, ByVal docevent As Microsoft.WindowsCE.Forms.DocumentListEventArgs) Handles $DocumentList$.DeletingDocument
+        ' Add code to close any instances of the file.
+
+    End Sub
+
+    Private Sub DocList_SelectedDirectoryChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles $DocumentList$.SelectedDirectoryChanged
+        ' Add code to access the selected folder to open and close files.    
+
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

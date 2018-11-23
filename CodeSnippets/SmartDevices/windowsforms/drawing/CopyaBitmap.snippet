@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Copy a Bitmap</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Copies a bitmap and part of a bitmap.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdcopybmp</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations/>
+      <Code Language="VB" Kind="method decl"><![CDATA[' This sample has the following methods:
+' CreateBitmap - For demonstration purposes.
+' CopyBitmap - Clones and also copies parts of a bitmap.
+' CreateAndCopy - Calls CreateBitmap and CopyBitmap
+
+' The OnPaint override contains the code to draw the bitmaps
+' on the form. OnPaint is called whenever the form invalidates.
+
+Dim bmpSource As Bitmap
+Dim bmpClone As Bitmap
+Dim bmpCenter As Bitmap
+
+' Creates a bitmap for copying and cloning.
+Function CreateBitmap(sideSize As Integer) As Bitmap
+    Dim bmp As New Bitmap(sideSize, sideSize)
+    Dim g As Graphics = Graphics.FromImage(bmp)
+
+    g.FillEllipse(New SolidBrush(Color.Red), 0, 0, sideSize, sideSize)
+    g.DrawLine(New Pen(Color.Black), 0, 0, sideSize, sideSize)
+    g.DrawLine(New Pen(Color.Black), sideSize, 0, 0, sideSize)
+    g.Dispose()
+
+    Return bmp
+End Function
+
+' Copies the entire bitmap.   
+Overloads Function CopyBitmap(bmpSource As Bitmap) As Bitmap
+    Return New Bitmap(bmpSource)
+End Function
+
+' Copies a part of the bitmap.
+Overloads Function CopyBitmap(bmpSource As Bitmap, part As Rectangle) As Bitmap
+    Dim bmp As New Bitmap(part.Width, part.Height)
+
+    Dim g As Graphics = Graphics.FromImage(bmpSource)
+    g.DrawImage(bmpSource, 0, 0, part, GraphicsUnit.Pixel)
+    g.Dispose()
+
+    Return bmp
+End Function
+
+' Calls the above methods.
+Private Sub CreateAndCopy()   
+    Dim w As Integer = 75
+    Dim third As Integer = CInt(w / 3)
+
+    ' Create bitmap.
+    bmpSource = CreateBitmap(w)
+
+    ' Copy entirely as a clone.
+    bmpClone = CopyBitmap(bmpSource)
+
+    ' Copy the center part of it.
+    bmpCenter = CopyBitmap(bmpSource, New Rectangle(third, third, third, third))
+End Sub
+
+' Draws the bitmaps on the form.   
+Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    Dim arialFont As Font
+    Dim blackBrush As Brush
+
+    arialFont = New Font("Arial", 10, FontStyle.Regular)
+    blackBrush = New SolidBrush(Color.Black)
+
+    Dim y As Integer = 10
+
+    e.Graphics.DrawString("source bitmap", ArialFont, BlackBrush, 10, y)
+    y += 20
+
+    e.Graphics.DrawImage(bmpSource, 10, y)
+    y += bmpSource.Height + 10
+
+    e.Graphics.DrawString("clone bitmap", ArialFont, BlackBrush, 10, y)
+    y += 20
+
+    e.Graphics.DrawImage(bmpClone, 10, y)
+    y += bmpClone.Height + 10
+
+    e.Graphics.DrawString("center part of bitmap", ArialFont, BlackBrush, 10, y)
+    y += 20
+
+    e.Graphics.DrawImage(bmpCenter, 10, y)
+    y += bmpCenter.Height + 10
+
+    ' Dispose graphic objects.
+    arialFont.Dispose()
+    blackBrush.Dispose()
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

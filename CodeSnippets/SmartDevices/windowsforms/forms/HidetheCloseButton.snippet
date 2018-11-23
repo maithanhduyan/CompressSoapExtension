@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Hide the Close button</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Remove close and minimize buttons.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdhidecl</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method body"><![CDATA[' Removes Minimize (X) and Close(OK) buttons.
+' Caution: Only way to close the application
+' is with the Running Programs memory options under Settings. 
+Me.ControlBox = False]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

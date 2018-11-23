@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get the Available Memory of the Device</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Uses Operating System APIs to retrieve memory information about the device.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdmemory</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method decl"><![CDATA[Friend Structure MEMORYSTATUS
+        Public dwLength As UInteger
+        Public dwMemoryLoad As UInteger
+        Public dwTotalPhys As UInteger
+        Public dwAvailPhys As UInteger
+        Public dwTotalPageFile As UInteger
+        Public dwAvailPageFile As UInteger
+        Public dwTotalVirtual As UInteger
+        Public dwAvailVirtual As UInteger
+    End Structure
+
+    Friend Declare Function GlobalMemoryStatus Lib "CoreDll.Dll" (ByRef ms As MEMORYSTATUS) As Integer
+
+    Friend Shared Function GetMemory() As MEMORYSTATUS
+
+        Dim memStatus As New MEMORYSTATUS
+        GlobalMemoryStatus(memStatus)
+
+        Return memStatus
+    End Function]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Create a Button with an Image</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Creates a custom control derived from Button with a background image.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdbuttonimg</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+      </Declarations>
+      <Code Language="VB" Kind="type decl"><![CDATA[Public Class PictureButtonDemo
+   Inherits System.Windows.Forms.Form
+    
+    Friend WithEvents PictureButton1 As New PictureButton
+
+    Public Sub New()
+
+        ' Display the OK close button.
+        Me.MinimizeBox = False
+
+        Me.Text = "Picture Button Demo"
+        
+        ' Create an instance of the PictureButton custom control.
+        With PictureButton1
+            .Parent = Me
+            .Bounds = New Rectangle(10, 30, 150, 30)
+            .ForeColor = Color.White
+            .BackgroundImageValue = MakeBitmap(Color.Blue, PictureButton1.Width, PictureButton1.Height)
+            .PressedImageValue = MakeBitmap(Color.LightBlue, PictureButton1.Width, PictureButton1.Height)
+            .Text = "Click Me"
+        End With
+    End Sub
+
+    ' Clean up any resources being used.
+    Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
+        MyBase.Dispose(disposing)
+    End Sub
+
+    ' Create a bitmap object, fill it with the specified color.   
+    ' To make it look like a custom image, draw an ellipse in it.
+    Function MakeBitmap(ByVal ButtonColor As Color, ByVal width As Integer, ByVal height As Integer) As Bitmap
+        Dim bmp As New Bitmap(width, height)
+        Dim g As Graphics = Graphics.FromImage(bmp)
+        g.FillRectangle(New SolidBrush(ButtonColor), 0, 0, bmp.Width, bmp.Height)
+        g.DrawEllipse(New Pen(Color.LightGray), 3, 3, width - 6, height - 6)
+        g.Dispose()
+
+        Return bmp
+    End Function
+
+    Shared Sub Main()
+        Application.Run(New PictureButtonDemo)
+    End Sub
+
+    ' Because PictureButton inherits from Control, 
+    ' you can use the default Click event.
+    Private Sub PictureButton1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles PictureButton1.Click
+        'Add code here to respond to button click.    
+    End Sub
+
+End Class
+
+'Button with an image custom control.
+Public Class PictureButton
+    Inherits Control
+
+    Private backgroundImg As Image
+    Private pressedImg As Image
+    Private pressed As Boolean = False
+
+    ' Property for the background image to be drawn behind the button text.
+    Public Property BackgroundImageValue() As Image
+        Get
+            Return Me.backgroundImg
+        End Get
+        Set(ByVal Value As Image)
+            Me.backgroundImg = Value
+        End Set
+    End Property
+
+    ' Property for the background image to be drawn behind the button text when
+    ' the button is pressed.
+    Public Property PressedImageValue() As Image
+        Get
+            Return Me.pressedImg
+        End Get
+        Set(ByVal Value As Image)
+            Me.pressedImg = Value
+        End Set
+    End Property
+
+    ' Ivalidate form to cause repaint.
+    Protected Overrides Sub OnMouseDown(ByVal e As MouseEventArgs)
+        Me.pressed = True
+        Me.Invalidate()
+        MyBase.OnMouseDown(e)
+    End Sub
+
+    ' When the mouse is released, reset the "pressed" flag
+    ' and invalidate to redraw the button in the un-pressed state.
+    Protected Overrides Sub OnMouseUp(ByVal e As MouseEventArgs)
+        Me.pressed = False
+        Me.Invalidate()
+        MyBase.OnMouseUp(e)
+    End Sub 
+
+    ' Override the OnPaint method so we can draw the background image and the text.
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+    
+    	If Me.pressed AndAlso (Me.pressedImg IsNot Nothing) Then
+	            e.Graphics.DrawImage(Me.pressedImg, 0, 0)
+	        Else
+	            e.Graphics.DrawImage(Me.backgroundImg, 0, 0)
+        End If
+
+        ' Draw the text if there is any.
+        If Me.Text.Length > 0 Then
+            Dim size As SizeF = e.Graphics.MeasureString(Me.Text, Me.Font)
+
+            ' Center the text inside the client area of the PictureButton.
+            e.Graphics.DrawString(Me.Text, Me.Font, New SolidBrush(Me.ForeColor), (Me.ClientSize.Width - size.Width) / 2, (Me.ClientSize.Height - size.Height) / 2)
+        End If
+
+        ' Draw a border around the outside of the   
+        ' control to  look like Pocket PC buttons.
+        e.Graphics.DrawRectangle(New Pen(Color.Black), 0, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height - 1)
+
+        MyBase.OnPaint(e)
+    End Sub
+End Class]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

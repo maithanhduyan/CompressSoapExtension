@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get the Application Directory</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Gets the directory containing the assembly of the application.</Description>
+      <Shortcut>sddir</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Reflection</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Function GetApplicationDirectory() As String
+
+    return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules(0).FullyQualifiedName)
+
+End Function]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

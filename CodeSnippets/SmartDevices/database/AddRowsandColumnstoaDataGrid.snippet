@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Add Rows and Columns to a DataGrid</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Adds Rows and Columns to a DataGrid using a DataSet and a BindingSource.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sddgadd</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Data.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Xml</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Data</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>DataGrid</ID>
+          <Type>System.Windows.Forms.DataGrid</Type>
+          <ToolTip>Replace with DataGrid control on your form.</ToolTip>
+          <Default>dataGrid1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[' Create a DataSet for binding to a 
+' DataGrid using a BindingSource object.
+   Private Sub SetUpDataGrid()
+      Dim BindingSource1 As New BindingSource
+
+     ' Create a DataSet with a 
+     ' table of customer sales data.
+      Dim myDataSet As New DataSet("myDataSet")
+      Dim tSales As New DataTable("Sales")
+      
+      ' Add three columns.
+      Dim colDate As New DataColumn("Date", GetType(DateTime))
+      Dim colCust As New DataColumn("Customer")
+      Dim colTotal As New DataColumn("Total", GetType(Decimal))
+      tSales.Columns.Add(colDate)
+      tSales.Columns.Add(colCust)
+      tSales.Columns.Add(colTotal)
+       
+      ' Add the table to the DataSet.
+      myDataSet.Tables.Add(tSales)
+        
+      'Add needed rows. 
+      Dim newRow As DataRow
+      Dim i As Integer
+      For i = 1 To 3
+         newRow = tSales.NewRow()
+         tSales.Rows.Add(newRow)
+      Next i
+
+      ' Populate the table withe customer data.
+      tSales.Rows(0)("Date") = DateTime.Today
+      tSales.Rows(0)("Customer") = "Parker, Darren"
+      tSales.Rows(0)("Total") = 123.23
+
+      tSales.Rows(1)("Date") = DateTime.Today
+      tSales.Rows(1)("Customer") = "Ji, Jeune"
+      tSales.Rows(1)("Total") = 4322.33
+
+      tSales.Rows(2)("Date") = DateTime.Today
+      tSales.Rows(2)("Customer") = "Tibbott, Diane"
+      tSales.Rows(2)("Total") = 1222.33
+
+      ' Set the BindingSource to the DataSet.      
+      BindingSource1.DataSource = myDataSet
+
+      ' Bind the DataGrid to the BindingSource.
+      $DataGrid$.DataSource = BindingSource1
+
+      ' Set the current binding item to the Sales table.
+      BindingSource1.DataMember = "Sales"
+   End Sub 
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

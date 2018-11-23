@@ -27,7 +27,7 @@ Partial Class CK
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(141, 103)
+        Me.Button1.Location = New System.Drawing.Point(12, 12)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 0

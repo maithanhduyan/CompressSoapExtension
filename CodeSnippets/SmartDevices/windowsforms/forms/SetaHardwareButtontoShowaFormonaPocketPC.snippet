@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Set a HardwareButton to Show a Form on a Pocket PC</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Demonstrates how to override Pocket PC hardware buttons. Requires .NET Compact Framework 2.0.</Description>
+      <Shortcut>sdhard</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>statusBar</ID>
+          <Type>System.Windows.Forms.StatusBar</Type>
+          <ToolTip>Replace with a StatusBar control on your form.</ToolTip>
+          <Default>StatusBar1</Default>
+        </Literal>
+        <Object>
+          <ID>ppcButton1</ID>
+          <Type>Microsoft.WindowsCE.Forms.HardwareButton</Type>
+          <ToolTip>Replace this with a HardwareButton control on your form.</ToolTip>
+          <Default>HardwareButton1</Default>
+        </Object>
+        <Object>
+          <ID>ppcButton4</ID>
+          <Type>Microsoft.WindowsCE.Forms.HardwareButton</Type>
+          <ToolTip>Replace this with a HardwareButton control on your form.</ToolTip>
+          <Default>HardwareButton2</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub ConfigHWButton()
+    ' Set KeyPreview to true so that the form will receive key events 
+    ' before they are passed to the control that has focus. 
+    Me.KeyPreview = True
+    
+    $PPCButton1$= New HardwareButton()
+    $PPCButton4$ = New HardwareButton()
+    
+    ' Set the AssociatedControl property to the current form
+    ' and configure the first and fourth buttons to activate the form.
+    Try
+        $PPCButton1$.AssociatedControl = Me
+        $PPCButton4$.AssociatedControl = Me
+        $PPCButton1$.HardwareKey = HardwareKeys.ApplicationKey1
+        $PPCButton4$.HardwareKey = HardwareKeys.ApplicationKey4
+    Catch exc As Exception
+        MsgBox(exc.Message + " Check if the hardware button is physically available on this device.")
+    End Try
+End Sub
+   
+Private Overloads Sub OnKeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
+    ' When a hardware button is pressed and released, this form receives the 
+    ' KeyUp event. The OnKeyUp method is used to determine which hardware
+    ' button was pressed, because the event data specifies a member of the 
+    ' HardwareKeys enumeration.
+    Select Case CType(e.KeyCode, HardwareKeys)
+        Case HardwareKeys.ApplicationKey1
+            $StatusBar$.Text = "Button 1 pressed."
+        Case HardwareKeys.ApplicationKey4
+            $StatusBar$.Text = "Button 4 pressed."
+        Case Else
+    End Select
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

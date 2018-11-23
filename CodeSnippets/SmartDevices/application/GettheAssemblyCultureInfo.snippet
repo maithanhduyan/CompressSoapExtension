@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get the Assembly Culture Info</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Displays current locale, culture information, configured for the device.</Description>
+      <Shortcut>sdculture</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Globalization</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Reflection</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Function GetCultureInfoName() As String
+    Dim asm As Assembly = Assembly.GetExecutingAssembly()
+    Dim ci As CultureInfo = asm.GetName().CultureInfo
+    
+    'Return the culture name in English 
+    return ci.EnglishName
+End Function]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

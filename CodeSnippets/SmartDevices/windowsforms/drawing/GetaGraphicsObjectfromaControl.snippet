@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get a Graphics Object from a Control</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Gets a Graphics object from a control.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdgoctl</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method body"><![CDATA[' Get Graphics object from a the Form control.
+Dim g As Graphics = Me.CreateGraphics()]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

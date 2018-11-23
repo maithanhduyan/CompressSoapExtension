@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Set the DataSource of a DataGrid</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Sets the DataSource of a DataGrid.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sddgsource</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Data.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Data.SqlServerCe.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Xml</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Data</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Data.SqlServerCe</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>string</ID>
+          <Type>
+          </Type>
+          <ToolTip>Replace with query string.</ToolTip>
+          <Default>"SELECT * FROM People"</Default>
+        </Literal>
+        <Literal>
+          <ID>table</ID>
+          <Type>
+          </Type>
+          <ToolTip>Replace with table.</ToolTip>
+          <Default>"People"</Default>
+        </Literal>
+        <Object>
+          <ID>datagrid</ID>
+          <Type>DataGrid</Type>
+          <ToolTip>Replace with DataGrid control on your form.</ToolTip>
+          <Default>dataGrid1</Default>
+        </Object>
+        <Literal>
+          <ID>DataSourceName</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with data source location.</ToolTip>
+          <Default>"Data Source = \My Documents\test.sdf"</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub SetDataSource()
+    Dim sqlConn As System.Data.SqlServerCe.SqlCeConnection
+    Dim sqlDS As New DataSet
+    
+    ' It is assumed that there is a SQL Server Mobile Edition database
+    ' named test.sdf, and that the database has a table named
+    ' People. These should be modified to fit your application.
+    sqlConn = New SqlCeConnection($DataSourceName$)
+    
+    ' Select everything from a database named People on the SqlCeConnection sqlConn.
+    Dim sqlDA As New SqlCeDataAdapter($string$, sqlConn)
+    
+    ' Fill the DataTable People within the DataSet sqlDS.
+    sqlDA.Fill(sqlDS, $table$)
+    
+    ' Set the DataSource as the People table in the DataSet.
+    $datagrid$.DataSource = sqlDS.Tables($table$)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

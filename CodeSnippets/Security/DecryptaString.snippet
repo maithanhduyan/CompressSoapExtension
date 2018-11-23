@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Decrypt text from a file</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Decrypts text from a file using the Rijndael encryption algorithm.</Description>
+      <Shortcut>secDecrypt</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Security.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Security.Cryptography</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>fileName</ID>
+          <Type>String</Type>
+          <ToolTip>The filename containing the text to be decrypted.</ToolTip>
+          <Default>"encrypted.txt"</Default>
+        </Literal>
+        <Object>
+          <ID>privateKey</ID>
+          <Type>Byte</Type>
+          <ToolTip>The private Key used to encrypt the data.</ToolTip>
+          <Default>RijndaelAlg.Key</Default>
+        </Object>
+        <Object>
+          <ID>initializationVector</ID>
+          <Type>Byte</Type>
+          <ToolTip>The initialization vector used in the symmetric key encryption scheme.</ToolTip>
+          <Default>RijndaelAlg.IV</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[Dim fStream As FileStream = File.Open($filename$, FileMode.OpenOrCreate)
+        Dim RijndaelAlg As Rijndael = Rijndael.Create
+        Dim cStream As New CryptoStream(fStream, _
+                                        RijndaelAlg.CreateDecryptor($privatekey$, $initializationVector$), _
+                                        CryptoStreamMode.Read)
+
+        Dim sReader As New StreamReader(cStream)
+        Dim plainText As String = sReader.ReadLine()
+
+        sReader.Close()
+        cStream.Close()
+        fStream.Close()]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

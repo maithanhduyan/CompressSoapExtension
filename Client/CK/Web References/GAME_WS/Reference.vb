@@ -228,12 +228,11 @@ Namespace GAME_WS
             End Get
         End Property
     End Class
+#Region "CompressSoapExtension"
     <AttributeUsage(AttributeTargets.Method)> _
-Public Class CompressSoapExtensionAttribute
+    Public Class CompressSoapExtensionAttribute
         Inherits SoapExtensionAttribute
-
         Private pri As Integer
-
         Public Overrides ReadOnly Property ExtensionType() As Type
             Get
                 Return GetType(CompressExtension)
@@ -249,7 +248,6 @@ Public Class CompressSoapExtensionAttribute
             End Set
         End Property
     End Class
-
     Public Class CompressExtension
         Inherits SoapExtension
         Private oldStream As Stream
@@ -260,15 +258,15 @@ Public Class CompressSoapExtensionAttribute
 
         Public Overloads Overrides Function GetInitializer(ByVal methodInfo As LogicalMethodInfo, ByVal attribute As SoapExtensionAttribute) As Object
             Return Nothing
-        End Function 'GetInitializer
+        End Function
 
         Public Overloads Overrides Function GetInitializer(ByVal serviceType As Type) As Object
             Return Nothing
-        End Function 'GetInitializer
+        End Function
 
 
         Public Overrides Sub Initialize(ByVal initializer As Object)
-        End Sub 'Initialize
+        End Sub
 
         Public Overrides Function ChainStream(ByVal stream As Stream) As Stream
             Me.oldStream = stream
@@ -276,7 +274,7 @@ Public Class CompressSoapExtensionAttribute
             Me.zipInputStream = New ZipInputStream(Me.oldStream)
             Me.zipInputStream.Password = "PASSWORD"
             Return Me.newStream
-        End Function 'ChainStream
+        End Function
 
         Public Overrides Sub ProcessMessage(ByVal message As SoapMessage)
             Select Case message.Stage
@@ -327,4 +325,5 @@ Public Class CompressSoapExtensionAttribute
         End Sub
     End Class
 
+#End Region
 End Namespace

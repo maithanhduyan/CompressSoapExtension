@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Send a Notification to User</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Shows how to send a notification to a user using the Notification control and how to respond to it. Requires .NET Compact Framework 2.0.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdnotify</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Reflection</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>Caption</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with a caption for the notification.</ToolTip>
+          <Default>"Notification"</Default>
+        </Literal>
+        <Object>
+          <ID>Notification</ID>
+          <Type>Notification</Type>
+          <ToolTip>Replace with a Notification control on your form.</ToolTip>
+          <Default>Notification1</Default>
+        </Object>
+        <Literal>
+          <ID>EmbeddedResource</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with name of embedded resource in the format: namespace.filename.extension</ToolTip>
+          <Default>"PocketPCApplication1.notify.ico"</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub sendNotfication(ByVal message As String)
+
+        ' Set the Text property to the HTML string.
+        $Notification$.Text = message
+
+        ' Get the icon as an embedded resource.
+        ' Note that icon must be added to project as an embedded resource.
+        Dim asm As System.Reflection.Assembly
+        asm = System.Reflection.Assembly.GetExecutingAssembly()
+
+        ' Note that the name for the embedded resource
+        ' is case sensitive and must match the file name.
+        Dim s As Stream = asm.GetManifestResourceStream($EmbeddedResource$)
+        $Notification$.Icon = New Icon(s, 16, 16)
+
+        ' If the notification is canceled, its icon remains
+        ' available for later activating the notification.
+
+        $Notification$.Caption = $Caption$
+        $Notification$.Critical = False
+
+        ' Initially display the notification for 10 seconds.
+        $Notification$.InitialDuration = 10
+        $Notification$.Visible = True
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

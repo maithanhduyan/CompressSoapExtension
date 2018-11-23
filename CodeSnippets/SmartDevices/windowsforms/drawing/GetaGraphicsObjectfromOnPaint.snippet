@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get a Graphics Object from OnPaint</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Gets the Graphics object from the OnPaint event handler.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdgopaint</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method decl"><![CDATA[' Get Graphics object from the OnPaint event handler.
+Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+    ' Use the Graphics object from the PaintEventArgs
+    ' for tasks such as drawing a line.   
+
+    ' Create pen.
+    Dim blackPen As New Pen(Color.Black, 3)
+
+    ' Create coordinates of points that define line.
+    Dim x1 As Integer = 100
+    Dim y1 As Integer = 100
+    Dim x2 As Integer = 500
+    Dim y2 As Integer = 100
+
+    ' Draw line to screen.
+    e.Graphics.DrawLine(blackPen, x1, y1, x2, y2)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

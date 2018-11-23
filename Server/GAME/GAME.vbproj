@@ -82,7 +82,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Session.vb" />
+    <Compile Include="Cryptography\SHA.vb" />
     <Compile Include="GameApp\BlackJack\BLBusinessLogic.vb" />
+    <Compile Include="GameApp\BlackJack\Desk.vb" />
     <Compile Include="GameApp\BlackJack\Entity\Card.vb" />
     <Compile Include="GameService.asmx.vb">
       <DependentUpon>GameService.asmx</DependentUpon>
@@ -103,6 +106,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SQL\RandomNumber.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -123,9 +127,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="tiachop0102.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets" />

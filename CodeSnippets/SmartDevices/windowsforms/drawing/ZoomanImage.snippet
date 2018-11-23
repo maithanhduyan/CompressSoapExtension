@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Zoom an Image</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Zooms an image.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdzoom</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations/>
+      <Code Language="VB" Kind="method decl"><![CDATA[' This code simulates a zoom effect with two
+' bitmaps of the same size, where the second
+' contains a zoomed center section of the first.
+Dim bmp as Bitmap
+Dim bmpZoom as Bitmap
+   
+' First call CreateBitmap, then call DefineZoom.
+Sub CreateBitmap()
+    bmp = New Bitmap(75,75)
+    Dim g As Graphics = Graphics.FromImage(bmp)
+
+    Dim BlueBrush As New SolidBrush(Color.Blue)
+    Dim RedBrush As New SolidBrush(Color.Red)
+
+    Dim OuterRect As New Rectangle(0, 0, 200, 200)
+    g.FillRectangle(BlueBrush, OuterRect)
+      
+    Dim InnerRect As New Rectangle(25, 25, 25, 25)
+    g.FillRectangle(RedBrush, InnerRect)
+
+    g.Dispose()
+End Sub
+
+Sub DefineZoom()
+    ' Call this method after CreateBitmap
+    ' from the constructor of your form.
+    bmpZoom = New Bitmap(bmp.Width, bmp.Height)
+    Dim g As Graphics = Graphics.FromImage(bmpZoom)
+
+    Dim srcRect As New Rectangle(CInt(bmp.Width / 4), CInt(bmp.Height / 4), _
+        CInt(bmp.Width / 2), CInt(bmp.Height / 2))
+    Dim dstRect As New Rectangle(0, 0, bmpZoom.Width, bmpZoom.Height)
+    g.DrawImage(bmp, dstRect, srcRect, GraphicsUnit.Pixel)
+End Sub
+
+Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+    e.Graphics.DrawImage(bmp, 0, 0)
+    e.Graphics.DrawImage(bmpZoom, 125, 0)
+
+    bmp.Dispose
+    bmpZoom.Dispose
+    MyBase.OnPaint(e)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

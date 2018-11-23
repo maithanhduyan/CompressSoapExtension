@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Set the Input Method on a Pocket PC</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Sets the Pocket PC input method to Letter Recognizer. Requires .NET Compact Framework 2.0.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdim</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>InputPanel</ID>
+          <Type>InputPanel</Type>
+          <ToolTip>Replace with an InputPanel control on your form.</ToolTip>
+          <Default>InputPanel1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub SetInputMethod()
+    ' Sets the input method to Letter Recognizer.
+    For Each method As InputMethod In $InputPanel$.InputMethods
+    
+        If method.Name = "Letter Recognizer" Then
+            $InputPanel$.CurrentInputMethod = method
+            Exit For
+        End If
+    Next 
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

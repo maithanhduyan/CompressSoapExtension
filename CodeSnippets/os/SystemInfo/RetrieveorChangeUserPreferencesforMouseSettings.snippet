@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Retrieve Mouse Settings</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Retrieves several mouse settings.</Description>
+      <Shortcut>sysMouse</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+          <Url />
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Code Language="VB" Kind="method body"><![CDATA[Dim swapped As Boolean = My.Computer.Mouse.ButtonsSwapped
+Dim hasWheel As Boolean = My.Computer.Mouse.WheelExists
+Dim scrollLines As Integer = My.Computer.Mouse.WheelScrollLines
+Dim buttons As Integer = SystemInformation.MouseButtons
+Dim hoverSize As Size = SystemInformation.MouseHoverSize
+Dim hoverTime As Integer = SystemInformation.MouseHoverTime
+Dim speed As Integer = SystemInformation.MouseSpeed
+Dim delta As Integer = SystemInformation.MouseWheelScrollDelta
+Dim nativeWheel As Boolean = SystemInformation.NativeMouseWheelSupport]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

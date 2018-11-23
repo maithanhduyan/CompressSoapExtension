@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Create an Image with Transparency</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Creates an image with transparency based on the upper left pixel of the image.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdtranspar</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Drawing.Imaging</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>Bitmap</ID>
+          <Type>Bitmap</Type>
+          <ToolTip>Replace with a bitmap object defined in your application.</ToolTip>
+          <Default>bmp</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[' The .NET Compact Framework supports transparency
+' but with only one transparency color.
+' The SetColorKey method must have the `same color 
+' specified for the low color and high color range.
+Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+    Dim attr As New ImageAttributes
+
+    ' Sets the transparency color key based on the upper left pixel of the image.
+    attr.SetColorKey($Bitmap$.GetPixel(0, 0), $Bitmap$.GetPixel(0, 0))
+
+    ' Alternatively, you can also explicitly set the transparacy color.
+    attr.SetColorKey(Color.FromArgb(255, 0, 255), Color.FromArgb(255, 0, 255))
+    attr.SetColorKey(Color.Fuchsia, Color.Fuchsia)
+
+    ' Draw the image using the image attributes.
+    Dim rect As New Rectangle(0, 0, $Bitmap$.Width, $Bitmap$.Height)
+    e.Graphics.DrawImage($Bitmap$, rect, 0, 0, $Bitmap$.Width, $Bitmap$.Height, GraphicsUnit.Pixel, attr)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

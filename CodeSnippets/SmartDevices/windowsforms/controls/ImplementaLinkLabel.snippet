@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Implement a LinkLabel</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Describes how to use the LinkLabel control in .NET Compact Framework 2.0.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdlinklab</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>LinkLabel</ID>
+          <Type>System.Windows.Forms.LinkLabel</Type>
+          <ToolTip>Replace with a LinkLabel control on your form.</ToolTip>
+          <Default>LinkLabel1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[' The Text property appears as a link.
+    ' You can respond to its Click event or the KeyDown event.
+    Private Sub $LinkLabel$_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles $LinkLabel$.Click
+        MsgBox("Mouse click")
+    End Sub
+
+    Private Overloads Sub OnKeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        MsgBox("Key Down")
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Set the Close Button to X</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Sets the Minimize button (X), to minimize the form.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdxclose</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Declarations />
+      <Code Language="VB" Kind="method body"><![CDATA[' Display the X button to minimize application.
+' This is the default configuration.
+Me.ControlBox = True
+Me.MinimizeBox = True]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

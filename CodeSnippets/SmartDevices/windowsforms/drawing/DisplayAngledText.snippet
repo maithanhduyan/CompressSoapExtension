@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Display Angled Text</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Displays text at a 90 degree angle using a LogFont. Requires .NET Compact Framework 2.0.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdlogfont</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>LogFont</ID>
+          <Type>LogFont</Type>
+          <ToolTip>Replace with a LogFont object in your application.</ToolTip>
+          <Default>fontStruct</Default>
+        </Object>
+        <Literal>
+          <ID>LogFontText</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with text you want to show.</ToolTip>
+          <Default>Some Text</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Sub SetupLogFont()
+    ' Create and define a LogFont structure.
+    $LogFont$ = New Microsoft.WindowsCE.Forms.LogFont()
+
+    With $LogFont$
+        .Height = -24
+        .Width = 0
+        .Weight = 0
+ 
+        ' Set the font angled at 90 degrees.
+        ' Remember to multiply by 10.
+        .Escapement = 900
+ 
+        ' The Escapement member specifies both the
+        ' escapement and orientation. You should set
+        ' Escapement and Orientation to the same value.
+        .Orientation = $LogFont$.Escapement
+
+        ' No formmatting.
+        .Italic = 0
+        .Underline = 0
+        .StrikeOut = 0
+
+        .CharSet = LogFontCharSet.Default
+        .OutPrecision = LogFontPrecision.Default
+        .ClipPrecision = LogFontClipPrecision.Default
+        .Quality = LogFontQuality.Default
+        .PitchAndFamily = LogFontPitchAndFamily.Default
+        .FaceName = "Arial"
+    End With
+
+    ' Create the font from the LogFont structure.
+    Me.Font = System.Drawing.Font.FromLogFont($LogFont$)
+End Sub
+
+Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    ' Create string to draw.
+    Dim drawString As String = "$LogFontText$"
+    ' Create font and brush.
+    Dim drawBrush As New SolidBrush(Color.Red)
+
+    ' Create rectangle for drawing.
+    Dim x As Integer = 25
+    Dim y As Integer = 200
+    Dim width As Integer = 150
+    Dim height As Integer = -150
+    Dim drawRect As New RectangleF(x, y, width, height)
+    ' Draw rectangle to screen with White border to hide.
+    Dim WhitePen As New Pen(Color.White)
+    e.Graphics.DrawRectangle(WhitePen, x, y, width, height)
+
+    ' Draw string to screen using the LogFont.
+    e.Graphics.DrawString(drawString, Me.Font, drawBrush, drawRect)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Center a Form on a Pocket PC</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Resizes the form to occupy only the center part of the screen.</Description>
+      <Shortcut>sdcenter</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Code Language="VB" Kind="method decl">
+        <![CDATA[Private Sub CenterForm()
+    'Set the desired form size.  
+    Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+    Me.Size = New Size(200, 200)
+    Me.BackColor = Color.Red
+    'Get the size of the screen for centering the form.
+    Dim rectS As Rectangle = Screen.PrimaryScreen.Bounds
+    Me.Location = New Point(CInt((rectS.Width - Me.Width) / 2), CInt((rectS.Height - Me.Height ) / 2))
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

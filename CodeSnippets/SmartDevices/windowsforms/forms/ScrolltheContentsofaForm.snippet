@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Scroll the Contents of a Form</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Uses scrollbars to scroll through a form with a panel of controls.</Description>
+      <Shortcut>sdscroll</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Declarations>
+        <Object>
+          <ID>hScroll</ID>
+          <Type>System.Windows.Forms.HScrollBar</Type>
+          <ToolTip>Replace with a HScrollBar control on your form.</ToolTip>
+          <Default>HScrollBar1</Default>
+        </Object>
+        <Object>
+          <ID>panel</ID>
+          <Type>System.Windows.Forms.Panel</Type>
+          <ToolTip>Replace with a Panel control on your form.</ToolTip>
+          <Default>Panel1</Default>
+        </Object>
+        <Object>
+          <ID>vScroll</ID>
+          <Type>System.Windows.Forms.VScrollBar</Type>
+          <ToolTip>Replace with a VScrollBar on your form.</ToolTip>
+          <Default>VScrollBar1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[' Place your controls in a panel.
+Private Sub $hscroll$_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles $hscroll$.ValueChanged
+    Me.$panel$.Left = -Me.$hscroll$.Value
+End Sub
+
+Private Sub $vscroll$_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles $vscroll$.ValueChanged
+    Me.$panel$.Top = -Me.$vscroll$.Value
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

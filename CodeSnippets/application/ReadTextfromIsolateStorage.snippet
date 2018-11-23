@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Read Text from Isolated Storage</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Reads the text from a file in isolated storage.</Description>
+      <Shortcut>appIsoRead</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO.IsolatedStorage</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>fileName</ID>
+          <Type>String</Type>
+          <ToolTip>The name of the file is in isolated storage.</ToolTip>
+          <Default>"myfile.txt"</Default>
+        </Literal>
+        <Object>
+          <ID>inputText</ID>
+          <Type>String</Type>
+          <ToolTip>The String variable that stores the contents of the file</ToolTip>
+          <Default>InputText</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[Dim isolatedStore As IsolatedStorageFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
+
+        Dim isolatedStream As New IsolatedStorageFileStream($FileName$, FileMode.Open, isolatedStore)
+
+        Using reader As New StreamReader(isolatedStream)
+            $InputText$ = reader.ReadToEnd
+        End Using]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

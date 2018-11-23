@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Resize Controls for SIP Display</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Resizes the length of a ListBox when the SIP (Soft Input Panel) is displayed.</Description>
+      <Shortcut>sdresizec</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>Microsoft.WindowsCE.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.WindowsCE.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>TextBox</ID>
+          <Type>System.Windows.Forms.TextBox</Type>
+          <ToolTip>Replace with a TextBox control on your form.</ToolTip>
+          <Default>TextBox1</Default>
+        </Object>
+        <Object>
+          <ID>ListBox</ID>
+          <Type>System.Windows.Forms.ListBox</Type>
+          <ToolTip>Replace with a ListBox control on your form.</ToolTip>
+          <Default>ListBox1</Default>
+        </Object>
+        <Object>
+          <ID>InputPanel</ID>
+          <Type>Microsoft.WindowsCE.Forms.InputPanel</Type>
+          <ToolTip>Replace with an InputPanel control on your form.</ToolTip>
+          <Default>InputPanel1</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[' Shortens the height of a ListBox when the SIP
+' (Soft Input Panel) is displayed so that the vertical
+' scroll bar of the ListBox is not obscured by the SIP.
+
+' Size the ListBox to about the height of the form.
+' Put the TextBox to the upper right or left of the list box.
+
+' When the TextBox receives focus, the SIP is enabled.
+' When the ListBox receives focus, the SIP is disabled.
+
+Dim ListBoxFullHeight As Integer
+
+' Call this method from the constructor, 
+' or Form_Load event, of your form.
+Private Sub SetListBoxFullHeight
+    ' Determine the original height of the list box.
+    ListBoxFullHeight = $ListBox$.Height
+End Sub
+
+' The InputPanel.EnabledChanged event 
+' occurs whenever the SIP is enabled or disabled.
+Private Sub $InputPanel$_EnabledChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles $InputPanel$.EnabledChanged
+    Dim VisibleRect As System.Drawing.Rectangle
+    If $InputPanel$.Enabled = False Then
+        ' The SIP is disabled, so the height of the ListBox
+        ' is set to its original full height (ListBoxFullHeight).
+        $ListBox$.Height = ListBoxFullHeight
+    Else
+        ' The SIP is enabled, so the height of the ListBox
+        ' is set to the height of the visible desktop area,
+        ' minus 10 pixels for padding.
+        VisibleRect = $InputPanel$.VisibleDesktop
+        $ListBox$.Height = VisibleRect.Height - 20
+    End If
+End Sub
+
+Private Sub $TextBox$_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles $TextBox$.GotFocus
+    ' Display the SIP for entering text.
+    $InputPanel$.Enabled = True
+End Sub
+
+Private Sub $ListBox$_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles $ListBox$.GotFocus
+    ' Hide the SIP.
+    $InputPanel$.Enabled = False
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

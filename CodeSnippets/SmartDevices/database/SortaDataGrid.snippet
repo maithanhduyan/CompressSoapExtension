@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Sort a DataGrid</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Sorts controls bound to BindingSource</Description>
+      <Shortcut>sddatasort</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.DataGrid.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Data</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Xml</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Data</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>BindingSource1</ID>
+          <Type>BindingSource</Type>
+          <ToolTip>Replace with the name of the BindingSource object used by the controls on the form.  </ToolTip>
+          <Default>BindingSource1</Default>
+        </Object>
+        <Literal>
+          <ID>sortingExpression</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with sorting expression string to be used by BindingSource, e.g. the name of a column to sort on.  </ToolTip>
+          <Default>columnName</Default>
+        </Literal>
+        <Literal>
+          <ID>sortOrder</ID>
+          <Type>String</Type>
+          <ToolTip>Sort order used, e.g. " DESC" for descending or "ASC" for ascending.  </ToolTip>
+          <Default> DESC</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[        $BindingSource1$.Sort = "$sortingExpression$" & " $sortOrder$"]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

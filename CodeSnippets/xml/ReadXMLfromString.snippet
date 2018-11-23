@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Read XML from a String</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Reads XML data from a string.</Description>
+      <Shortcut>xmlReadString</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Xml.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Xml</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>XmlString</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with code to initialize string with XML.</ToolTip>
+          <Default>"&lt;book/&gt;"</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[' Create the reader.
+Dim reader As XmlReader = XmlReader.Create(New StringReader($xmlString$))
+While reader.Read()
+
+End While]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

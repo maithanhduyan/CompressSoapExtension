@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Draw a Box around Text</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Draws a rectangle around a string.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdbox</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+	<Literal>
+	  <ID>BoxString</ID>
+	  <Default>"Hello World!"</Default>
+	  <Type>String</Type>
+	  <ToolTip>Replace with the string you want to display a rectangle around</ToolTip>
+	</Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[' This snippet uses the OnPaint event handler
+' to draw a rectangle around a string.
+Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    Dim s As String = $BoxString$
+    Dim pen As New Pen(Color.Red, 5)
+    Dim font As New Font("Arial", 18, FontStyle.Regular)
+    Dim brush As New SolidBrush(Color.Black)
+    Dim textSize As SizeF = e.Graphics.MeasureString(s, font)
+    
+    ' Create a rectangle with padding space between string and box.
+    Dim r As New Rectangle(45, 70, CInt(Fix(textSize.Width) + 10), CInt(Fix(textSize.Height) + 10))
+    e.Graphics.DrawRectangle(pen, r)
+    e.Graphics.DrawString(s, font, brush, 50F, 75F)
+    MyBase.OnPaint(e)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

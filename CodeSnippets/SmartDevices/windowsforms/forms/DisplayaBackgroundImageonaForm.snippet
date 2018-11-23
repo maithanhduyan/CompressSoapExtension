@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Display a Background Image on a Form</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Displays an image from an embedded resource to occupy the size of the form.</Description>
+      <Shortcut>sdbackimg</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Drawing.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Drawing</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Reflection</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>image</ID>
+          <Type>System.String</Type>
+          <ToolTip>Replace with name of embedded resource in the format: namespace.filename.extension</ToolTip>
+          <Default>PocketPCApplication1.mypicture.bmp</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    'Get image compiled as an embedded resource.
+    Dim asm As System.Reflection.Assembly
+    asm = System.Reflection.Assembly.GetExecutingAssembly()
+    
+    ' Note that the name for the embedded resource
+    ' is case sensitive and must match the file name.
+    Dim backGroundImage As New Bitmap(asm.GetManifestResourceStream("$Image$"))
+    
+    e.Graphics.DrawImage(backgroundImage, Me.ClientRectangle, _
+        New Rectangle(0, 0, backgroundImage.Width, backgroundImage.Height), _
+        GraphicsUnit.Pixel)
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

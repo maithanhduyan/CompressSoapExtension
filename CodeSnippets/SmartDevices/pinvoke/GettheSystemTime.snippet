@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get or Set the System Time</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Declares and uses the system APIs to accesses the system clock to get or set the current time.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdtime</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Structure SYSTEMTIME
+        Public wYear As UShort
+        Public wMonth As UShort
+        Public wDayOfWeek As UShort
+        Public wDay As UShort
+        Public wHour As UShort
+        Public wMinute As UShort
+        Public wSecond As UShort
+        Public wMilliseconds As UShort
+    End Structure
+
+    Private Declare Function GetSystemTime Lib "CoreDll.dll" (ByRef lpSystemTime As SYSTEMTIME) As UInteger
+    Private Declare Function SetSystemTime Lib "CoreDll.dll" (ByRef lpSystemTime As SYSTEMTIME) As UInteger
+
+    ' Note that the GetSystemTime function returns Coordinated Universal Time 
+    ' (UTC, also known as Greenwich Mean Time). To get your local time, you must 
+    ' add or subtract the number of hours between your time zone and UTC. For example,
+    ' 24:00 (midnight) in UTC is 19:00 in New York--an offset of minus 5 hours (UTC–5).
+    ' To determine the UTC offset for your time zone, see the Time Zone tab of 
+    ' Date and Time Properties.
+    ' Note that some device emulators do not initially set 
+    ' daylight-saving time correctly, which could affect your result.
+
+    Public Shared Function GetDateTime() As Date
+        Dim st As SYSTEMTIME
+
+        GetSystemTime(st)
+
+        'Return the current SYSTEMTIME as a Date
+        Return New Date(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds)
+    End Function
+
+    Public Shared Sub SetDateTime(ByVal newDateTime As Date)
+        Dim newTime As SYSTEMTIME
+
+        'Convert the Date to SYSTEMTIME
+        newTime.wYear = newDateTime.Year
+        newTime.wMonth = newDateTime.Month
+        newTime.wDay = newDateTime.Day
+        newTime.wHour = newDateTime.Hour
+        newTime.wMinute = newDateTime.Minute
+        newTime.wSecond = newDateTime.Second
+        newTime.wMilliseconds = newDateTime.Millisecond
+
+        SetSystemTime(newTime)
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

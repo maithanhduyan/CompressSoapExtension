@@ -12,6 +12,7 @@ Imports System.IO
 Imports System.Text
 Imports ICSharpCode.SharpZipLib.Zip
 Imports System.ComponentModel
+Imports GAME.Game.Entity
 
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
 Public Class GameService
@@ -25,7 +26,6 @@ Public Class GameService
     <WebMethod(), SoapDocumentMethod("http://tempuri.org/GetCard", ParameterStyle:=SoapParameterStyle.Bare), CompressSoapExtension()> _
     Public Function GetCard() As Card
         Dim card As New Card
-        card.Name = "A"
         Return card
     End Function
 
@@ -65,15 +65,15 @@ Public Class CompressExtension
 
     Public Overloads Overrides Function GetInitializer(ByVal methodInfo As LogicalMethodInfo, ByVal attribute As SoapExtensionAttribute) As Object
         Return Nothing
-    End Function 'GetInitializer
+    End Function
 
     Public Overloads Overrides Function GetInitializer(ByVal serviceType As Type) As Object
         Return Nothing
-    End Function 'GetInitializer
+    End Function
 
 
     Public Overrides Sub Initialize(ByVal initializer As Object)
-    End Sub 'Initialize
+    End Sub
 
     Public Overrides Function ChainStream(ByVal stream As Stream) As Stream
         Me.oldStream = stream
@@ -81,7 +81,7 @@ Public Class CompressExtension
         Me.zipInputStream = New ZipInputStream(Me.oldStream)
         Me.zipInputStream.Password = "PASSWORD"
         Return Me.newStream
-    End Function 'ChainStream
+    End Function
 
     Public Overrides Sub ProcessMessage(ByVal message As SoapMessage)
         Select Case message.Stage
@@ -133,3 +133,5 @@ Public Class CompressExtension
 End Class
 
 #End Region
+
+

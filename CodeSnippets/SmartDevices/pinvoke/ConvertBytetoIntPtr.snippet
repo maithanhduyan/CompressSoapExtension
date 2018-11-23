@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Convert Byte to IntPtr</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Accesses an IntPtr which corresponds to a byte array.</Description>
+      <HelpUrl />
+      <Keywords />
+      <Shortcut>sdconvertbyte</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Runtime.InteropServices</Namespace>
+        </Import>
+      </Imports>
+      <Declarations />
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Declare Function LocalAlloc Lib "coredll.dll" (ByVal uFlags As UInteger, ByVal uBytes As UInteger) As IntPtr
+    Private Declare Function LocalFree Lib "coredll.dll" (ByVal hMem As IntPtr) As IntPtr
+    Private Declare Function LocalReAlloc Lib "coredll.dll" (ByVal hMem As IntPtr, ByVal uBytes As UInteger, ByVal fuFlags As UInteger) As IntPtr
+
+    Public Const LMEM_FIXED As Integer = 0
+    Public Const LMEM_MOVEABLE As Integer = 2
+    Public Const LMEM_ZEROINIT As Integer = &H40
+
+    Sub PinObject()
+        ' Access an IntPtr which corresponds to a byte array.
+        Dim test(4) As Byte
+        Dim hObject As GCHandle = GCHandle.Alloc(test, GCHandleType.Pinned)
+        Dim pObject As IntPtr = hObject.AddrOfPinnedObject()
+        If hObject.IsAllocated Then
+            hObject.Free()
+        End If
+    End Sub
+
+    Sub MarshaltoMemory()
+        ' Create a block of memory via LocalAlloc
+        ' and Marshal the data to the block.
+        Dim test(4) As Byte
+        Dim p As IntPtr = LocalAlloc(CUInt(LMEM_FIXED Or LMEM_ZEROINIT), CUInt(test.Length))
+        If p.Equals(IntPtr.Zero) Then
+            Throw New OutOfMemoryException
+        Else
+            Marshal.Copy(test, 0, p, test.Length)
+        End If
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

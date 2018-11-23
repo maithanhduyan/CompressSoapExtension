@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Receive an IrDA Transfer</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Receives a text file using infrared transmission from another device.</Description>
+      <Shortcut>sdirdarec</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Windows.Forms.dll</Assembly>
+        </Reference>
+        <Reference>
+          <Assembly>System.Net.IrDA.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualBasic</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.IO</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Net</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Net.Sockets</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Windows.Forms</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[Private Sub writeIrDADataToFile(ByVal irServiceName As String, ByVal fileName As String)
+
+        Dim irClient As New IrDAClient()
+        Dim irDevices() As IrDADeviceInfo
+        Dim buffersize As Integer = 256
+
+        ' Create a collection of for discovering up to
+        ' three devices, although only one is needed.
+        irDevices = irClient.DiscoverDevices(2)
+
+        ' Cancel if no devices are found.
+        If irDevices.Length = 0 Then
+            Exit Sub
+        End If
+
+        ' Connect to the first IrDA device
+        Dim irEndP As New IrDAEndPoint(irDevices(0).DeviceID, irServiceName)
+        irClient.Connect(irEndP)
+
+        ' Create a stream for writing a Pocket Word file.
+        Dim writeStream As Stream
+        writeStream = New FileStream(fileName, FileMode.OpenOrCreate)
+        
+        ' Get the underlying stream of the client.
+        Dim baseStream As Stream = irClient.GetStream()
+
+        ' Create buffer for reading the file.
+        Dim buffer(buffersize) As Byte
+
+        Dim numToRead, numRead As Int64
+
+        numToRead = 8
+
+        While numToRead > 0
+            numRead = baseStream.Read(buffer, 0, numToRead)
+            numToRead -= numRead
+        End While
+
+        ' Get the size of the buffer to show
+        ' the number of bytes to write to the file.
+        numToRead = BitConverter.ToInt64(buffer, 0)
+
+        Try
+            While numToRead > 0
+                numRead = baseStream.Read(buffer, 0, buffer.Length)
+                numToRead -= numRead
+                writeStream.Write(buffer, 0, numRead)
+            End While
+        Finally
+            writeStream.Close()
+        End Try
+
+        baseStream.Close()
+        irClient.Close()
+
+    End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

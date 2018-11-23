@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Read XML from a URL</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Read XML data from a location defined as an URL.</Description>
+      <Shortcut>xmlReadUrl</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.Xml.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Xml</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>Url</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with an URL.</ToolTip>
+          <Default>"http://www.contoso.com/books.xml"</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[Dim myUrl As String = $Url$
+Dim reader As XmlReader = XmlReader.Create(myUrl)
+While reader.Read
+
+End While]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

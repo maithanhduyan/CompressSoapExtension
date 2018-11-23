@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Enumerate Attributes of an XML Node</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Enumerates the attributes of an XmlNode.</Description>
+      <Shortcut>xmlEnum</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>System.XML.dll</Assembly>
+          <Url />
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>System.Xml</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Object>
+          <ID>NodeName</ID>
+          <Type>XmlNode</Type>
+          <ToolTip>Replace with an XmlNode object.</ToolTip>
+          <Default>node</Default>
+        </Object>
+      </Declarations>
+      <Code Language="VB" Kind="method body"><![CDATA[For Each attribute As XmlAttribute In $NodeName$.Attributes
+
+Next]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

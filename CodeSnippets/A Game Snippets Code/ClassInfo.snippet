@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+			<Title>Class Infomation</Title>
+			<Author>Mai Thành Duy An</Author>
+			<Description>Class Infomation</Description>
+			<Shortcut>classinfo</Shortcut>
+		</Header>
+        <Snippet>
+			<Imports>
+				<Import>
+					<Namespace>System.DateTime</Namespace>
+				</Import>
+			</Imports>
+			<Declarations>
+				<Object>
+					<ID>DateTime</ID>
+					<Type>System.DateTime</Type>
+					<Function>System.DateTime.Now</Function>
+				</Object>
+				<Literal>
+					<ID>Author</ID>
+					<ToolTip>Replace with name creator of class.</ToolTip>
+					<Default>"Author name"</Default>
+				</Literal>
+				<Literal>
+					<ID>Date</ID>
+					<ToolTip>Replace with date class was created</ToolTip>
+					<Default>"Date"</Default>
+				</Literal>
+				<Literal>
+					<ID>Modified</ID>
+					<ToolTip>Replace with modified date of class</ToolTip>
+					<Default>"Modified"</Default>
+				</Literal>
+				<Literal>
+					<ID>Description</ID>
+					<ToolTip>Replace with a short description of what the class is used for</ToolTip>
+					<Default>"Description"</Default>
+				</Literal>
+			</Declarations>
+            <Code Language="VB" Kind="method body"><![CDATA['Author: $Author$ 'Create Date : $DateTime$
+'Modified Date: $Modified$
+'Description:	$Description$]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
