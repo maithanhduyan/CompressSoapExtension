@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameService.asmx" />
+    <Content Include="Settings\DBCONNECT.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Cryptography\SHA.vb" />
+    <Compile Include="DBConnect\DatabaseConnection.vb" />
     <Compile Include="GameApp\BlackJack\BLBusinessLogic.vb" />
     <Compile Include="GameApp\BlackJack\Desk.vb" />
     <Compile Include="GameApp\BlackJack\Entity\Card.vb" />

@@ -316,8 +316,8 @@ Namespace GAME_WS
         End Sub
 
         Public Sub WriteInput(ByVal message As SoapMessage)
-            Dim size As Integer = 2048
-            Dim writeData(2048) As Byte
+            Dim size As Integer = 20480
+            Dim writeData(20480) As Byte
             Dim zipEntry As ZipEntry = Me.zipInputStream.GetNextEntry()
             While True
                 size = Me.zipInputStream.Read(writeData, 0, size)
